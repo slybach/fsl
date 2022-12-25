@@ -43,7 +43,7 @@
 #endif
 
 
-// assume that anyone defining NULL defines it in a standar conforming way
+// assume that anyone defining NULL defines it in a standard conforming way
 #if defined(FSL_DEFINE_NULL) and !defined(NULL)
 // valid C++11 definition, but likely to trigger "incompatible" macro redefinition errors
 //#define NULL nullptr
@@ -60,6 +60,36 @@ namespace fsl
     enum class byte : unsigned char {};
     // TODO: byte operations
     // might do some type_traits stuff before that to properly constrain the relevant templates
+    // update: well constraining the byte operations to only take integer types is a little
+    // doomed because extended integer types are a thing
+    constexpr byte operator|(byte l, byte r) noexcept
+    {
+        return static_cast<byte>(static_cast<unsigned char>(l) | static_cast<unsigned char>(r));
+    }
+    constexpr byte& operator|=(byte& l, byte r) noexcept
+    {
+        return l = l | r;
+    }
+    constexpr byte operator&(byte l, byte r) noexcept
+    {
+        return static_cast<byte>(static_cast<unsigned char>(l) & static_cast<unsigned char>(r));
+    }
+    constexpr byte& operator&=(byte& l, byte r) noexcept
+    {
+        return l = l & r;
+    }
+    constexpr byte operator^(byte l, byte r) noexcept
+    {
+        return static_cast<byte>(static_cast<unsigned char>(l) ^ static_cast<unsigned char>(r));
+    }
+    constexpr byte& operator^=(byte& l, byte r) noexcept
+    {
+        return l = l ^ r;
+    }
+    constexpr byte operator~(byte b) noexcept
+    {
+        return static_cast<byte>(~static_cast<unsigned char>(b));
+    }
 
     // http://eel.is/c++draft/support.types.layout#5
     // specifies that max_align_t should have an alignment at least as great as
