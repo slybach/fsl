@@ -57,8 +57,15 @@ namespace fsl
     using nullptr_t = decltype(nullptr);
     using ptrdiff_t = decltype((int*)nullptr - (int*)nullptr);  // http://eel.is/c++draft/expr.add#5
 
-    enum class byte : unsigned char {};
+    // ok well this byte thing is actually not implementable either
+    // the main utility of byte is not just about being an actual byte
+    // type with safe explicit conversions and operations, it's also
+    // about being permitted to alias other objects, and that's not
+    // something a user-defined type can ever hope to achieve, so this
+    // thing here is really just for show
+    enum class byte: unsigned char {};
     // TODO: byte operations
+    // TODO: check namespace, the overloads are probably in global namespace?
     // might do some type_traits stuff before that to properly constrain the relevant templates
     // update: well constraining the byte operations to only take integer types is a little
     // doomed because extended integer types are a thing

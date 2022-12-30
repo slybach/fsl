@@ -3,6 +3,7 @@
 
 #include "fsl_config.h"
 #include "cstddef.h"
+#include "utility.h"    // declval, type_identity (C++20)
 
 #ifdef FSL_PULL_STD
 #include <type_traits>
@@ -15,6 +16,9 @@ namespace fsl
     // parameters to leverage sfinae for example)
     // I'll look up the quote for that if I don't forget to make
     // sure this is a thing
+    // ended up finding this: http://eel.is/c++draft/requirements#member.functions-2
+    // but no clue if there's any mention for template class and
+    // their template arguments
     using namespace std;
 }
 #endif
@@ -149,6 +153,13 @@ namespace fsl
     template <typename T, typename U>
     inline constexpr bool is_same_v = is_same<T, U>::value;
 
+    // missing here: is_base_of
+
+    template <typename From, typename To>
+    struct is_convertible;
+    template <typename From, typename To>
+    inline constexpr bool is_convertible_v = is_convertible<From, To>::value;
+
 
     // const volatile transformations
     template <typename T>
@@ -179,6 +190,8 @@ namespace fsl
 
     // reference modifications
 
+    // add_rvalue_reference in utility for declval
+
 
     // sign modifications
 
@@ -197,7 +210,7 @@ namespace fsl
     {
         using type = T;
     };
-    template <bool B, typename T>
+    template <bool B, typename T = void>
     using enable_if_t = typename enable_if<B, T>::type;
 
     template <bool B, typename T, typename F>
@@ -346,6 +359,34 @@ namespace fsl
     }
     template <typename T>
     struct is_member_pointer : details::is_member_pointer_helper<remove_cv_t<T> >::type {};
+
+
+    // type relations
+    namespace details
+    {
+        // is_convertible is specified to test whether the return statement in this imaginary function
+        // To test()
+        // {
+        //     return std::declval<From>();
+        // }
+        // would be "well-formed". There's some wording about declval not being odr-used and whatnot,
+        // but essentially if we exclude cases where To is void, this return statement would trigger
+        // copy - initialization of an object of type To from an rvalue expression of type From. This
+        // also happens to be what passing an rvalue expression of type From into a function that
+        // takes an argument of type To by value would do, so that's what we SFINAE on (and we special
+        // case void).
+        template <typename T>
+        false_type convertible_test(...);
+        template <typename T>
+        true_type convertible_test(T);
+    }
+    template <typename From, typename To>
+    struct is_convertible : conditional_t <
+        is_same_v<From, void> && is_same_v<To, void>,
+        true_type,
+        decltype(details::convertible_test(declval<From>()))
+    > {};
+
 }   // namespace fsl
 
 #endif
