@@ -63,40 +63,40 @@ namespace fsl
     // about being permitted to alias other objects, and that's not
     // something a user-defined type can ever hope to achieve, so this
     // thing here is really just for show
-    enum class byte: unsigned char {};
-    // TODO: byte operations
-    // TODO: check namespace, the overloads are probably in global namespace?
-    // might do some type_traits stuff before that to properly constrain the relevant templates
-    // update: well constraining the byte operations to only take integer types is a little
-    // doomed because extended integer types are a thing
-    constexpr byte operator|(byte l, byte r) noexcept
-    {
-        return static_cast<byte>(static_cast<unsigned char>(l) | static_cast<unsigned char>(r));
-    }
-    constexpr byte& operator|=(byte& l, byte r) noexcept
-    {
-        return l = l | r;
-    }
-    constexpr byte operator&(byte l, byte r) noexcept
-    {
-        return static_cast<byte>(static_cast<unsigned char>(l) & static_cast<unsigned char>(r));
-    }
-    constexpr byte& operator&=(byte& l, byte r) noexcept
-    {
-        return l = l & r;
-    }
-    constexpr byte operator^(byte l, byte r) noexcept
-    {
-        return static_cast<byte>(static_cast<unsigned char>(l) ^ static_cast<unsigned char>(r));
-    }
-    constexpr byte& operator^=(byte& l, byte r) noexcept
-    {
-        return l = l ^ r;
-    }
-    constexpr byte operator~(byte b) noexcept
-    {
-        return static_cast<byte>(~static_cast<unsigned char>(b));
-    }
+    //enum class byte: unsigned char {};
+    //// TODO: byte operations
+    //// TODO: check namespace, the overloads are probably in global namespace?
+    //// might do some type_traits stuff before that to properly constrain the relevant templates
+    //// update: well constraining the byte operations to only take integer types is a little
+    //// doomed because extended integer types are a thing
+    //constexpr byte operator|(byte l, byte r) noexcept
+    //{
+    //    return static_cast<byte>(static_cast<unsigned char>(l) | static_cast<unsigned char>(r));
+    //}
+    //constexpr byte& operator|=(byte& l, byte r) noexcept
+    //{
+    //    return l = l | r;
+    //}
+    //constexpr byte operator&(byte l, byte r) noexcept
+    //{
+    //    return static_cast<byte>(static_cast<unsigned char>(l) & static_cast<unsigned char>(r));
+    //}
+    //constexpr byte& operator&=(byte& l, byte r) noexcept
+    //{
+    //    return l = l & r;
+    //}
+    //constexpr byte operator^(byte l, byte r) noexcept
+    //{
+    //    return static_cast<byte>(static_cast<unsigned char>(l) ^ static_cast<unsigned char>(r));
+    //}
+    //constexpr byte& operator^=(byte& l, byte r) noexcept
+    //{
+    //    return l = l ^ r;
+    //}
+    //constexpr byte operator~(byte b) noexcept
+    //{
+    //    return static_cast<byte>(~static_cast<unsigned char>(b));
+    //}
 
     // http://eel.is/c++draft/support.types.layout#5
     // specifies that max_align_t should have an alignment at least as great as
