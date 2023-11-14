@@ -60,9 +60,10 @@ namespace fsl
     // ok well this byte thing is actually not implementable either
     // the main utility of byte is not just about being an actual byte
     // type with safe explicit conversions and operations, it's also
-    // about being permitted to alias other objects, and that's not
+    // about being permitted to "alias" other objects, and that's not
     // something a user-defined type can ever hope to achieve, so this
     // thing here is really just for show
+    // relevant quote http://eel.is/c++draft/basic.lval#11.3
     //enum class byte: unsigned char {};
     //// TODO: byte operations
     //// TODO: check namespace, the overloads are probably in global namespace?
