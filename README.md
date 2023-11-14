@@ -23,9 +23,9 @@ that.
 The namespace `fsl` is expected to mirror whatever feature from the standard
 library that FSL implements. I might provide a utility header `fsl/fsl.h` to
 quickly include all of FSL at once, which could be a suitable precompilation
-target when using precompiled headers. To use SFL's vector, assuming vector makes
+target when using precompiled headers. To use FSL's vector, assuming vector makes
 it into FSL, you are expected to `#include "fsl/vector.h"`. That should give you
-a clue as to how to setup SFL if you're a lunatic wanting to use it, and if you
+a clue as to how to setup FSL if you're a lunatic wanting to use it, and if you
 don't get it you definitely shouldn't be using it.
 
 
