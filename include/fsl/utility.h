@@ -76,6 +76,30 @@ namespace fsl
     template <typename ... Ts>
     using index_sequence_for = make_index_sequence<sizeof...(Ts)>;
 
+
+    // in-place construction
+    struct in_place_t
+    {
+        explicit in_place_t() = default;
+    };
+    inline constexpr in_place_t in_place {};
+
+    template <typename T>
+    struct in_place_type_t
+    {
+        explicit in_place_type_t() = default;
+    };
+    template <typename T>
+    inline constexpr in_place_type_t<T> in_place_type {};
+
+    template <size_t I>
+    struct in_place_index_t
+    {
+        explicit in_place_index_t() = default;
+    };
+    template <size_t I>
+    inline constexpr in_place_index_t<I> in_place_index {};
+
 }   // namespace fsl
 
 #endif
