@@ -1,9 +1,22 @@
 Currently, FSL is targetting C++17.
 
-Legend:
+Status legend:
 
 - done*: done for FSL, some standard feature are unavailable
 - WIP: work in progress
+- never: will never be implemented
+
+"Never" rationale (for those things that don't even have a FSL header)
+----------------------------------------------------------------------
+A gigantic part of C standard library requires knowledge of the underlying
+system, and kinda cannot be done portably from user-space. And I don't really
+feel like doing inline assembly either to do syscalls/interrupts and whatnot,
+the original point was to do standard C++.
+
+The principal reason for `std::initializer_list` to exist, is for use with list
+initialization. This is not user-side implementable.
+
+typeinfo
 
 
 Headers
@@ -21,11 +34,11 @@ Utilities library
 +-----------------------+---------------------------+-------------+
 | <chrono>              |                           |             |
 +-----------------------+---------------------------+-------------+
-| <csetjmp>             |                           |             |
+| <csetjmp>             |                           | never       |
 +-----------------------+---------------------------+-------------+
-| <csignal>             |                           |             |
+| <csignal>             |                           | never       |
 +-----------------------+---------------------------+-------------+
-| <cstdarg>             |                           |             |
+| <cstdarg>             |                           | never       |
 +-----------------------+---------------------------+-------------+
 | <cstddef>             | "fsl/cstddef.h"           | done*       |
 +-----------------------+---------------------------+-------------+
@@ -35,7 +48,7 @@ Utilities library
 +-----------------------+---------------------------+-------------+
 | <functional>          |                           |             |
 +-----------------------+---------------------------+-------------+
-| <initializer_list>    | "fsl/initializer_list.h"  |             |
+| <initializer_list>    |                           | never       |
 +-----------------------+---------------------------+-------------+
 | <optional>            |                           |             |
 +-----------------------+---------------------------+-------------+
@@ -45,7 +58,7 @@ Utilities library
 +-----------------------+---------------------------+-------------+
 | <typeindex>           |                           |             |
 +-----------------------+---------------------------+-------------+
-| <typeinfo>            |                           |             |
+| <typeinfo>            |                           | never       |
 +-----------------------+---------------------------+-------------+
 | <utility>             | "fsl/utility.h"           | WIP         |
 +-----------------------+---------------------------+-------------+
